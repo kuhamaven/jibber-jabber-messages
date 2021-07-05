@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/conversation")
 public class ConversationController {
 
     private final ConversationService conversationService;
@@ -23,13 +22,14 @@ public class ConversationController {
         this.conversationService = conversationService;
     }
 
-    @MessageMapping()
+    @MessageMapping("/chat")
     @SendTo("/topic/messages")
     public List<ResponseMessageDto> processMessage(@Payload MessageDto messageDto) {
+        String a = "Aa";
         return conversationService.addMessage(messageDto);
     }
 
-    @GetMapping("/{senderId}/{recipientId}")
+    @GetMapping("/conversation/{senderId}/{recipientId}")
     public ConversationDto findConversation(@PathVariable String senderId, @PathVariable String recipientId) {
         return conversationService.getConversation(senderId, recipientId);
     }
