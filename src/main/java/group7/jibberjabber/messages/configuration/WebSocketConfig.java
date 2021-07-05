@@ -14,6 +14,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/chat");
         registry.addEndpoint("/chat").withSockJS();
+//      .setAllowedOrigins("http://localhost:3000", "http://jibber-jabber-proxy")
     }
 
     @Override
