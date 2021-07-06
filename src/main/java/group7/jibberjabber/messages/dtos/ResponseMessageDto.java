@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 public class ResponseMessageDto {
     private String senderId;
 
-    private String recipientId;
+//    private String recipientId;
 
     private String body;
 
     private LocalDateTime time;
 
     public static ResponseMessageDto toDto(Message message){
-        return new ResponseMessageDto(message.getSenderId(), message.getRecipientId(), message.getBody(), message.getTime());
+        return new ResponseMessageDto(message.getSenderId(), message.getBody(), message.getTime());
     }
 }

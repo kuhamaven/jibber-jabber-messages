@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -37,11 +38,14 @@ public class ConversationService {
         else conversation = optional.get();
 
         Message message = dtoToMessage(messageDto);
-        conversation.addMessage(message);
+        message.setTime(LocalDateTime.now());
         message.setConversation(conversation);
+//        message = messagesRepository.save(message);
+        conversation.addMessage(message);
         conversationsRepository.save(conversation);
 
-        return getConversationMessages(conversation.getSenderId(), conversation.getRecipientId());
+        List<ResponseMessageDto> result = getConversationMessages(conversation.getSenderId(), conversation.getRecipientId());
+        return result;
     }
 
     private Optional<Conversation> findConversation(String senderId, String recipientId){
@@ -63,7 +67,7 @@ public class ConversationService {
 
         if(conversation.isPresent()){
             List<Message> messages = conversation.get().getMessages();
-            messages.sort(Comparator.comparing(Message::getTime).reversed());
+            messages.sort(Comparator.comparing(Message::getTime));
             return messages.stream().map(ResponseMessageDto::toDto).collect(Collectors.toList());
         }
 

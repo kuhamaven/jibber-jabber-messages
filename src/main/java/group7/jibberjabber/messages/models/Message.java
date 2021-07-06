@@ -26,7 +26,6 @@ public class Message {
 
     private String body;
 
-    @CreationTimestamp
     private LocalDateTime time;
 
     @ManyToOne

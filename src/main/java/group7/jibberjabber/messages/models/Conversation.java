@@ -22,7 +22,7 @@ public class Conversation {
 
     private String recipientId;
 
-    @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Message> messages = new ArrayList<>();
 
     public Conversation(String senderId, String recipientId){
