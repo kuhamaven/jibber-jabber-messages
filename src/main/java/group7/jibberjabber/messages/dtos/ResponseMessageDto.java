@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor
@@ -17,9 +18,9 @@ public class ResponseMessageDto {
 
     private String body;
 
-    private LocalDateTime time;
+    private String time;
 
     public static ResponseMessageDto toDto(Message message){
-        return new ResponseMessageDto(message.getSenderId(), message.getBody(), message.getTime());
+        return new ResponseMessageDto(message.getSenderId(), message.getBody(), message.getTime().format(DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy")));
     }
 }
